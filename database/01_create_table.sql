@@ -1,9 +1,5 @@
--- =====================================================================
 -- 01_create_table.sql
--- Purpose : Creates the "students" table exactly as given in the
---           assignment schema.
--- Run on  : the "students_db" database (see README for how to create it)
--- =====================================================================
+-- Run on : the "students_db" database (see README for how to create it)
 
 -- Drop the table first (if it already exists) so this script can be
 -- re-run safely to reset the database to a clean state.

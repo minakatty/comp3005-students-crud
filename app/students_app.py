@@ -1,7 +1,7 @@
 """
 students_app.py
 ---------------------------------------------------------------------------
-COMP 3005 - Database Interaction with PostgreSQL and Application Programming
+COMP 3005 
 
 A small Python console application that connects to a PostgreSQL database
 and performs CRUD (Create, Read, Update, Delete) operations on the
@@ -15,7 +15,7 @@ and performs CRUD (Create, Read, Update, Delete) operations on the
 The program shows a numbered menu so each function can be called one at a
 time (and its effect checked in pgAdmin).
 
-Library used: psycopg2 (the standard PostgreSQL driver for Python).
+Library used: psycopg2 
 ---------------------------------------------------------------------------
 """
 
@@ -28,12 +28,9 @@ import psycopg2
 from psycopg2 import errors
 
 
-# ---------------------------------------------------------------------------
 # Database connection settings
-# ---------------------------------------------------------------------------
 # Each value can be overridden with an environment variable, so the code
-# never has to be edited to run on a different machine. The defaults match
-# a standard local PostgreSQL / pgAdmin installation.
+# never has to be edited to run on a different machine
 DB_CONFIG = {
     "host": os.getenv("DB_HOST", "localhost"),
     "port": os.getenv("DB_PORT", "5432"),
@@ -53,9 +50,7 @@ def get_connection():
     return psycopg2.connect(**DB_CONFIG)
 
 
-# ---------------------------------------------------------------------------
 # READ
-# ---------------------------------------------------------------------------
 def getAllStudents():
     """
     Retrieves every record from the students table and displays them
@@ -91,10 +86,7 @@ def getAllStudents():
         if conn:
             conn.close()
 
-
-# ---------------------------------------------------------------------------
 # CREATE
-# ---------------------------------------------------------------------------
 def addStudent(first_name, last_name, email, enrollment_date):
     """
     Inserts a new student record into the students table.
@@ -107,8 +99,6 @@ def addStudent(first_name, last_name, email, enrollment_date):
         conn = get_connection()
         with conn.cursor() as cur:
             # %s placeholders = parameterized query. psycopg2 safely escapes
-            # the values, which prevents SQL injection.
-            # RETURNING gives back the auto-generated primary key.
             cur.execute(
                 "INSERT INTO students (first_name, last_name, email, enrollment_date) "
                 "VALUES (%s, %s, %s, %s) RETURNING student_id;",
@@ -120,12 +110,10 @@ def addStudent(first_name, last_name, email, enrollment_date):
         return new_id
 
     except errors.UniqueViolation:
-        # Raised when the email already exists (UNIQUE constraint).
         if conn:
             conn.rollback()
         print(f"[ERROR] The email '{email}' is already used by another student.")
     except errors.NotNullViolation:
-        # Raised when a required (NOT NULL) column is missing.
         if conn:
             conn.rollback()
         print("[ERROR] first_name, last_name and email are required.")
@@ -178,9 +166,8 @@ def updateStudentEmail(student_id, new_email):
     return False
 
 
-# ---------------------------------------------------------------------------
+
 # DELETE
-# ---------------------------------------------------------------------------
 def deleteStudent(student_id):
     """
     Deletes the record of the student with the given student_id.
@@ -210,9 +197,7 @@ def deleteStudent(student_id):
     return False
 
 
-# ---------------------------------------------------------------------------
 # Input helpers (validate user input before it reaches the database)
-# ---------------------------------------------------------------------------
 def ask_required(prompt):
     """Keeps asking until the user types a non-empty value."""
     while True:
@@ -247,9 +232,7 @@ def ask_date(prompt):
             print("  Invalid date. Use the format YYYY-MM-DD (e.g. 2023-09-01).")
 
 
-# ---------------------------------------------------------------------------
 # Main menu
-# ---------------------------------------------------------------------------
 def main():
     """Shows the menu and calls the chosen CRUD function in a loop."""
     # Ask for the password once if it was not given as an environment variable.
@@ -305,6 +288,5 @@ def main():
 
 
 # Run the menu only when this file is executed directly
-# (not when it is imported by another script).
 if __name__ == "__main__":
     main()

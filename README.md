@@ -1,12 +1,10 @@
-# COMP 3005 – Database Interaction with PostgreSQL and Application Programming
+# COMP 3005 – Assignment 03 (Question 01)
 
 A Python console application that connects to a PostgreSQL database and performs
 CRUD (Create, Read, Update, Delete) operations on a `students` table.
 
-## 🎥 Demonstration Video
-
-**Video link:** https://REPLACE-WITH-YOUR-VIDEO-LINK
-
+video link: 
+https://youtu.be/ubBRV9linR0?si=_Z2SzEpy_eQrRayb
 ---
 
 ## Repository Structure
@@ -90,7 +88,6 @@ pip install -r app/requirements.txt
 ```bash
 python app/students_app.py
 ```
-(Use `python3` on macOS/Linux.) Python is interpreted, so there is no separate compile step.
 
 The program asks for your PostgreSQL password, connects, and shows this menu:
 
@@ -123,7 +120,7 @@ Example (macOS/Linux): `DB_PASSWORD=yourpassword python3 app/students_app.py`
 
 ---
 
-## Example Run
+##example Run
 
 ```
 Choose an option (1-5): 1
@@ -134,5 +131,5 @@ ID   First Name      Last Name       Email                            Enrollment
 2    Jane            Smith           jane.smith@example.com           2023-09-01
 3    Jim             Beam            jim.beam@example.com             2023-09-02
 
-3 student(s) found.
+3 students found.
 ```
